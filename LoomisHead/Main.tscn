@@ -1,0 +1,342 @@
+[gd_scene load_steps=9 format=3 uid="uid://bksa4chtsgxoc"]
+
+[ext_resource type="Material" uid="uid://d0lovf6awb4cb" path="res://Resources/Materials/Base.tres" id="1_4e4ml"]
+[ext_resource type="ArrayMesh" uid="uid://c436x8vdo8rpb" path="res://Resources/Models/LoomisHead.obj" id="2_j4tey"]
+[ext_resource type="Material" uid="uid://b4nqpl17rbowd" path="res://Resources/Materials/Around.tres" id="3_ixlqh"]
+[ext_resource type="Material" uid="uid://fdypj5u383fx" path="res://Resources/Materials/Plane.tres" id="3_npmiw"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="4_bg7n6"]
+[ext_resource type="ArrayMesh" uid="uid://cgldktybk66a1" path="res://Resources/Models/Axis.obj" id="6_55dyi"]
+[ext_resource type="Texture2D" uid="uid://bebappoql1bri" path="res://Resources/Textures/bhg.png" id="6_rnuhv"]
+[ext_resource type="Material" uid="uid://b3w04pb0476ia" path="res://Resources/Materials/Axis.tres" id="6_tm86y"]
+
+[node name="Main Scene" type="Node3D"]
+
+[node name="LoomisHead" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -1.12868e-09, 3.0268e-09, -7.69614e-09, 1, -1.39698e-09, 4.77303e-09, 4.19095e-09, 1, 0, -3, 0)
+material_override = ExtResource("1_4e4ml")
+mesh = ExtResource("2_j4tey")
+
+[node name="Planes" type="Node3D" parent="LoomisHead"]
+visible = false
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LoomisHead/Planes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00551, 0.000366211)
+material_override = ExtResource("3_npmiw")
+size = Vector3(5, 0.025, 6.42407)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="LoomisHead/Planes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08628, 0.000366211)
+material_override = ExtResource("3_npmiw")
+size = Vector3(5, 0.025, 6.42407)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="LoomisHead/Planes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.91741, 0.000366211)
+material_override = ExtResource("3_npmiw")
+size = Vector3(5, 0.025, 6.42407)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="LoomisHead/Planes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.04816, 0.000366211)
+material_override = ExtResource("3_npmiw")
+size = Vector3(5, 0.025, 6.42407)
+
+[node name="Head Background" type="CSGSphere3D" parent="."]
+transform = Transform3D(0.999964, 0.00827456, -0.00173267, -0.00828279, 0.999954, -0.0047923, 0.00169293, 0.00480648, 0.999987, 0, 0, 0)
+material_override = ExtResource("3_ixlqh")
+radius = 36.7855
+
+[node name="Camera Handle" type="Node3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="Camera Handle" node_paths=PackedStringArray("planes", "headBackground")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 10)
+projection = 1
+current = true
+script = ExtResource("4_bg7n6")
+planes = NodePath("../../LoomisHead/Planes")
+headBackground = NodePath("../../Head Background")
+
+[node name="HUD" type="Control" parent="Camera Handle/Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FOV" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Fov Slider" type="HSlider" parent="Camera Handle/Camera/HUD/FOV"]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 7.0
+offset_right = 172.0
+offset_bottom = 23.0
+value = 25.0
+
+[node name="Label" type="Label" parent="Camera Handle/Camera/HUD/FOV"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 50.0
+offset_bottom = 26.0
+text = "ZOOM"
+
+[node name="PROJECTION" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Projection Option" type="OptionButton" parent="Camera Handle/Camera/HUD/PROJECTION"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 6.0
+offset_right = 492.0
+offset_bottom = 37.0
+item_count = 2
+selected = 1
+popup/item_0/text = "Perspective"
+popup/item_0/id = 0
+popup/item_1/text = "Orthogonal"
+popup/item_1/id = 1
+
+[node name="LOOK" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Look H" type="HSlider" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 475.0
+offset_right = 400.0
+offset_bottom = 491.0
+max_value = 360.0
+step = 30.0
+value = 180.0
+
+[node name="Look V" type="VSlider" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 100.0
+offset_right = 491.0
+offset_bottom = 400.0
+max_value = 360.0
+step = 30.0
+value = 180.0
+
+[node name="Step H" type="SpinBox" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 467.0
+offset_right = 96.0625
+offset_bottom = 498.0
+min_value = 1.0
+max_value = 360.0
+value = 30.0
+
+[node name="Step V" type="SpinBox" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 55.0
+offset_right = 494.063
+offset_bottom = 86.0
+min_value = 1.0
+max_value = 360.0
+value = 30.0
+
+[node name="Reset Look" type="Button" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 452.0
+offset_right = 493.0
+offset_bottom = 489.0
+text = "R"
+
+[node name="Reset Look V" type="Button" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 439.0
+offset_right = 493.0
+offset_bottom = 449.0
+
+[node name="Reset Look H" type="Button" parent="Camera Handle/Camera/HUD/LOOK"]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 452.0
+offset_right = 486.0
+offset_bottom = 462.0
+rotation = 1.57079
+
+[node name="PLANES" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Planes Box" type="CheckButton" parent="Camera Handle/Camera/HUD/PLANES"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 29.0
+offset_right = 83.0
+offset_bottom = 60.0
+text = "Planes"
+
+[node name="ALWAYS ON TOP" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AOT Box" type="CheckButton" parent="Camera Handle/Camera/HUD/ALWAYS ON TOP"]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 1.0
+offset_right = 283.0
+offset_bottom = 32.0
+scale = Vector2(1.25, 1.25)
+text = "🔒"
+
+[node name="AXIS" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 37.0
+offset_right = 45.0
+offset_bottom = 77.0
+
+[node name="Axis Outline" type="TextureRect" parent="Camera Handle/Camera/HUD/AXIS"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 359.0
+offset_right = 65.0
+offset_bottom = 423.0
+texture = ExtResource("6_rnuhv")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera Handle/Camera/HUD/AXIS"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 361.0
+offset_right = 103.0
+offset_bottom = 461.0
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+
+[node name="SubViewport" type="SubViewport" parent="Camera Handle/Camera/HUD/AXIS/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(100, 100)
+render_target_update_mode = 4
+
+[node name="Axis Background" type="CSGSphere3D" parent="Camera Handle/Camera/HUD/AXIS/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.999964, 0.00827456, -0.00173267, -0.00828279, 0.999954, -0.0047923, 0.00169293, 0.00480648, 0.999987, -150, 0, 0)
+material_override = ExtResource("3_ixlqh")
+radius = 36.7855
+
+[node name="Axis Mesh" type="MeshInstance3D" parent="Camera Handle/Camera/HUD/AXIS/SubViewportContainer/SubViewport"]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -150, 0, 0)
+material_override = ExtResource("6_tm86y")
+mesh = ExtResource("6_55dyi")
+
+[node name="Other Handle" type="Node3D" parent="Camera Handle/Camera/HUD/AXIS/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 0, 0)
+
+[node name="Other Camera" type="Camera3D" parent="Camera Handle/Camera/HUD/AXIS/SubViewportContainer/SubViewport/Other Handle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+projection = 1
+
+[node name="EXPORT" type="Control" parent="Camera Handle/Camera/HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Export Button" type="Button" parent="Camera Handle/Camera/HUD/EXPORT"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 276.0
+offset_right = 68.0
+offset_bottom = 307.0
+rotation = -1.57079
+text = "Export"
+
+[node name="File Dialog" type="Control" parent="Camera Handle/Camera"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Container" type="PanelContainer" parent="Camera Handle/Camera/File Dialog"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 188.0
+offset_right = 353.0
+offset_bottom = 280.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera Handle/Camera/File Dialog/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="File Name" type="LineEdit" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "File Name..."
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Extension" type="Label" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = ".png
+"
+
+[node name="Erase File Name" type="Button" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="OK Button" type="Button" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "OK"
+
+[node name="Cancel Button" type="Button" parent="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Invalid Name Label" type="Label" parent="Camera Handle/Camera/File Dialog"]
+visible = false
+layout_mode = 0
+offset_left = 189.0
+offset_top = 287.0
+offset_right = 289.0
+offset_bottom = 310.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+text = "Invalid name"
+
+[connection signal="value_changed" from="Camera Handle/Camera/HUD/FOV/Fov Slider" to="Camera Handle/Camera" method="_on_fov_slider_value_changed"]
+[connection signal="item_selected" from="Camera Handle/Camera/HUD/PROJECTION/Projection Option" to="Camera Handle/Camera" method="_on_projection_option_item_selected"]
+[connection signal="value_changed" from="Camera Handle/Camera/HUD/LOOK/Look H" to="Camera Handle/Camera" method="_on_look_h_value_changed"]
+[connection signal="value_changed" from="Camera Handle/Camera/HUD/LOOK/Look V" to="Camera Handle/Camera" method="_on_look_v_value_changed"]
+[connection signal="value_changed" from="Camera Handle/Camera/HUD/LOOK/Step H" to="Camera Handle/Camera" method="_on_step_h_value_changed"]
+[connection signal="value_changed" from="Camera Handle/Camera/HUD/LOOK/Step V" to="Camera Handle/Camera" method="_on_step_v_value_changed"]
+[connection signal="pressed" from="Camera Handle/Camera/HUD/LOOK/Reset Look" to="Camera Handle/Camera" method="_on_reset_look_pressed"]
+[connection signal="pressed" from="Camera Handle/Camera/HUD/LOOK/Reset Look V" to="Camera Handle/Camera" method="_on_reset_look_v_pressed"]
+[connection signal="pressed" from="Camera Handle/Camera/HUD/LOOK/Reset Look H" to="Camera Handle/Camera" method="_on_reset_look_h_pressed"]
+[connection signal="toggled" from="Camera Handle/Camera/HUD/PLANES/Planes Box" to="Camera Handle/Camera" method="_on_planes_box_toggled"]
+[connection signal="toggled" from="Camera Handle/Camera/HUD/ALWAYS ON TOP/AOT Box" to="Camera Handle/Camera" method="_on_aot_box_toggled"]
+[connection signal="pressed" from="Camera Handle/Camera/HUD/EXPORT/Export Button" to="Camera Handle/Camera" method="_on_export_button_pressed"]
+[connection signal="pressed" from="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Erase File Name" to="Camera Handle/Camera" method="_on_erase_file_name_pressed"]
+[connection signal="pressed" from="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer2/OK Button" to="Camera Handle/Camera" method="_on_ok_button_pressed"]
+[connection signal="pressed" from="Camera Handle/Camera/File Dialog/Container/MarginContainer/VBoxContainer/HBoxContainer2/Cancel Button" to="Camera Handle/Camera" method="_on_cancel_button_pressed"]

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b3w04pb0476ia"]
+
+[ext_resource type="Texture2D" uid="uid://cqw1qqvr238mk" path="res://Resources/Textures/axis_tex.png" id="1_kredb"]
+
+[resource]
+albedo_texture = ExtResource("1_kredb")
+emission_enabled = true
+emission_texture = ExtResource("1_kredb")
