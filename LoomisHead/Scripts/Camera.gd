@@ -41,7 +41,7 @@ func _on_projection_option_item_selected(index):
 
 func _on_look_h_value_changed(value):
 	get_parent().rotation_degrees = Vector3(get_parent().rotation_degrees.x, 360.0-(value-180.0), 0)
-	otherCamera.get_parent().rotation_degrees = Vector3(get_parent().rotation_degrees.x, value-180.0, 0)
+	otherCamera.get_parent().rotation_degrees = Vector3(get_parent().rotation_degrees.x, 360.0-(value-180.0), 0)
 
 func _on_look_v_value_changed(value):
 	get_parent().rotation_degrees = Vector3(value-180.0, get_parent().rotation_degrees.y, 0)
