@@ -1,6 +1,6 @@
----------------------------------------------
-Loomis Head Reference     |     Diego Fortuna
----------------------------------------------
+--------------------------------------------------------------------
+Loomis Head Reference     |     Diego Fortuna     |     Godot Engine
+--------------------------------------------------------------------
 
 The software's goal is to help you draw a Loomis Head from whatever perspective you like.
 Rotate the already built Loomis Head and copy it by hand or export it as an image to use in your drawing!
